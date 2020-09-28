@@ -2,8 +2,6 @@ package ru.stqa.pft.addressbook;
 
 
 import org.testng.annotations.*;
-
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -11,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 public class AddressCreationTest {
     private WebDriver wd;
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
         wd.get("http://localhost/addressbook/index.php");
@@ -74,7 +72,7 @@ public class AddressCreationTest {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         wd.findElement(By.linkText("Logout")).click();
         wd.quit();
