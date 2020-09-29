@@ -17,4 +17,8 @@ public class NavigationHelper {
     public void gotoAddNewPage() {
         wd.findElement(By.linkText("add new")).click();
     }
+
+    public void openHomePage() {
+        wd.findElement(By.linkText("home page")).click();
+    }
 }
