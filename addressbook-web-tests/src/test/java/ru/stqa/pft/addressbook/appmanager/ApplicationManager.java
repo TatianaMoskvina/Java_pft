@@ -5,17 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.AddressData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+
     public WebDriver wd;
+
+    private GroupHelper groupHelper;
 
     public void init() {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/index.php");
+        groupHelper = new GroupHelper(wd);
         login("admin", "secret");
     }
 
@@ -31,24 +34,6 @@ public class ApplicationManager {
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
-    public void returnToGroupPage() {
-        wd.findElement(By.linkText("group page")).click();
-    }
-
-    public void submitGroupCreation() {
-        wd.findElement(By.name("submit")).click();
-    }
-
-    public void fillGroupForm(GroupData groupData) {
-        wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
-        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-        wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
-    }
-
-    public void initGroupCreation() {
-        wd.findElement(By.name("new")).click();
-    }
-
     public void gotoGroupPage() {
         wd.findElement(By.linkText("groups")).click();
     }
@@ -56,14 +41,6 @@ public class ApplicationManager {
     public void stop() {
         wd.findElement(By.linkText("Logout")).click();
         wd.quit();
-    }
-
-    public void deleteSelectedGroup() {
-        wd.findElement(By.name("delete")).click();
-    }
-
-    public void selectGroup() {
-        wd.findElement(By.name("selected[]")).click();
     }
 
     public void openHomePage() {
@@ -106,4 +83,7 @@ public class ApplicationManager {
         wd.findElement(By.linkText("add new")).click();
     }
 
+    public GroupHelper getGroupHelper() {
+        return groupHelper;
+    }
 }
