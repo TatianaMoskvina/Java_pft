@@ -53,4 +53,9 @@ public class AddressHelper extends HelperBase{
     public void submitAddressModification() {
         click(By.name("update"));
     }
+
+    public void deleteSelectedAddress() {
+        click(By.xpath("//input[@value='Delete']"));
+        wd.switchTo().alert().accept();
+    }
 }
