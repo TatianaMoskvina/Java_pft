@@ -22,11 +22,12 @@ public class AddressData {
     private final String aday;
     private final String amonth;
     private final String ayear;
+    private String group;
     private final String address2;
     private final String phone2;
     private final String notes;
 
-    public AddressData(String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String address2, String phone2, String notes) {
+    public AddressData(String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear,String group,String address2, String phone2, String notes) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -48,6 +49,7 @@ public class AddressData {
         this.aday = aday;
         this.amonth = amonth;
         this.ayear = ayear;
+        this.group = group;
         this.address2 = address2;
         this.phone2 = phone2;
         this.notes = notes;
@@ -147,5 +149,9 @@ public class AddressData {
 
     public String getNotes() {
         return notes;
+    }
+
+    public String getGroup() {
+        return group;
     }
 }
