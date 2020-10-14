@@ -66,4 +66,11 @@ public class AddressHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
+
+    public boolean isThereAAddress() { return isElementPresent(By.xpath("//img[@alt='Edit']"));}
+
+    public void createAddress(AddressData addressData, boolean b) {
+        fillAddressForm(addressData, true);
+        submitAddressCreation();
+    }
 }
