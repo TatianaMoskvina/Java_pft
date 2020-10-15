@@ -12,6 +12,7 @@ public class GroupModificationTest extends TestBase {
         int before = app.getGroupHelper().Count();
         if (! app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData("Group1", "Group header", "Group footer"));
+            before = before+1;
         }
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initGroupModification();
