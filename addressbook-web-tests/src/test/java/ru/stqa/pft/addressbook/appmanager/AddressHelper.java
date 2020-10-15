@@ -72,5 +72,12 @@ public class AddressHelper extends HelperBase {
     public void createAddress(AddressData addressData, boolean b) {
         fillAddressForm(addressData, true);
         submitAddressCreation();
+        returnToHomePage();
+
     }
+
+    public void returnToHomePage() {
+        click(By.linkText("home"));
+    }
+
 }
