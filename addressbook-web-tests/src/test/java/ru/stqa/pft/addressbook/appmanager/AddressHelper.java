@@ -65,6 +65,7 @@ public class AddressHelper extends HelperBase {
     public void deleteSelectedAddress() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
+        wd.findElement(By.cssSelector("div.msgbox"));
     }
 
     public boolean isThereAAddress() { return isElementPresent(By.xpath("//img[@alt='Edit']"));}
