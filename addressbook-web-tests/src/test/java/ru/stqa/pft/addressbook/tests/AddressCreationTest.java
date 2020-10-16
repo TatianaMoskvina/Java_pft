@@ -21,7 +21,7 @@ public class AddressCreationTest extends TestBase {
         int after = app.getAddressHelper().Count();
         List<AddressData> afterList = app.getAddressHelper().getAddressList();
         Assert.assertEquals(afterList.size(), beforeList.size() + 1);
-        Assert.assertEquals(after, before + 1);
+        Assert.assertEquals(after, before+1);
 
     }
 

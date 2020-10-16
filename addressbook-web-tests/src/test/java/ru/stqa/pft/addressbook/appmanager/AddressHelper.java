@@ -80,7 +80,8 @@ public class AddressHelper extends HelperBase {
     public void createAddress(AddressData addressData, boolean b) {
         fillAddressForm(addressData, true);
         submitAddressCreation();
-        returnToHomePage();
+        wd.findElement(By.cssSelector("div.msgbox"));
+        //wd.findElement(By.linkText("add next"));
 
     }
 
@@ -90,7 +91,7 @@ public class AddressHelper extends HelperBase {
 
     public List<AddressData> getAddressList() {
         List<AddressData> addresses = new ArrayList<AddressData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr"));
         for (WebElement element : elements) {
             String name = element.getText();
             AddressData address = new AddressData(name, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
