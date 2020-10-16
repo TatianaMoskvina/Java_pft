@@ -29,7 +29,7 @@ public class AddressModificationTest extends TestBase{
         List<AddressData> afterList = app.getAddressHelper().getAddressList();
         Assert.assertEquals(afterList.size(), beforeList.size());
         Assert.assertEquals(after, before);
-        
+
 
     }
 
