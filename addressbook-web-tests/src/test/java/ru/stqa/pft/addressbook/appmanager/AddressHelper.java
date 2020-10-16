@@ -3,9 +3,14 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressHelper extends HelperBase {
 
@@ -68,7 +73,9 @@ public class AddressHelper extends HelperBase {
         wd.findElement(By.cssSelector("div.msgbox"));
     }
 
-    public boolean isThereAAddress() { return isElementPresent(By.xpath("//img[@alt='Edit']"));}
+    public boolean isThereAAddress() {
+        return isElementPresent(By.xpath("//img[@alt='Edit']"));
+    }
 
     public void createAddress(AddressData addressData, boolean b) {
         fillAddressForm(addressData, true);
@@ -81,4 +88,18 @@ public class AddressHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
+    public List<AddressData> getAddressList() {
+        List<AddressData> addresses = new ArrayList<AddressData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            AddressData address = new AddressData(name, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            addresses.add(address);
+        }
+        return addresses;
+    }
+
+    public int Count() {
+        return wd.findElements(By.xpath("//img[@alt='Edit']")).size();
+    }
 }
