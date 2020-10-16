@@ -16,7 +16,7 @@ public class AddressDeletionTest extends TestBase{
             app.getAddressHelper().createAddress(new AddressData("First name", "Middle name", "Last name", "Nickname", "title", "company", "address", null, "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text"), true);
             before = before+1;
         }
-        app.getAddressHelper().selectAddress();
+        app.getAddressHelper().selectAddress(before-1);
         app.getAddressHelper().deleteSelectedAddress();
         app.getNavigationHelper().openHomePage();
         int after = app.getGroupHelper().Count();

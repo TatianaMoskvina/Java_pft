@@ -50,8 +50,8 @@ public class AddressHelper extends HelperBase {
     }
 
 
-    public void selectAddress() {
-        click(By.name("selected[]"));
+    public void selectAddress(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void initAddressModification() {
