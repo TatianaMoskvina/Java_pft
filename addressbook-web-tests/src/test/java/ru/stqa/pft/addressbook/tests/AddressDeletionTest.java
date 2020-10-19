@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddressDeletionTest extends TestBase{
 
-    @Test
+    @Test (enabled = false)
     public void testAddressDeletion() {
         app.getNavigationHelper().openHomePage();
         List<AddressData> beforeList = app.getAddressHelper().getAddressList();

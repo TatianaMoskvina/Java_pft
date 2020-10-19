@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AddressCreationTest extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void testAddressCreation() throws Exception {
         app.getNavigationHelper().openHomePage();
         List<AddressData> beforeList = app.getAddressHelper().getAddressList();
