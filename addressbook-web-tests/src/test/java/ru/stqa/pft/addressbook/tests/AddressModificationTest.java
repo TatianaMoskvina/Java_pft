@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddressModificationTest extends TestBase{
 
-    @Test (enabled = false)
+    @Test 
     public void testAddressModification() {
         app.goTo().homePage();
         int before = app.group().Count();

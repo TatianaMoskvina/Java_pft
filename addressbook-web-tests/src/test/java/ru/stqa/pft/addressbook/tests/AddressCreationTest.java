@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddressCreationTest extends TestBase {
 
-    @Test (enabled = false)
+    @Test
     public void testAddressCreation() throws Exception {
         app.goTo().homePage();
         List<AddressData> beforeList = app.getAddressHelper().getAddressList();
