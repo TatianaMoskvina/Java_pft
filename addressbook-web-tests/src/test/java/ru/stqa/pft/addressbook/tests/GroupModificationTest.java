@@ -28,13 +28,13 @@ public class GroupModificationTest extends TestBase {
         GroupData group = new GroupData().
                 withId(modifiedGroup.getId()).withName("Group1(edited)").withHeader("Group header").withFooter("Group footer");
         app.group().modify(group);
-        List<GroupData> after = app.group().getList();
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
 
 
         before.remove(modifiedGroup);
         before.add(group);
-        Assert.assertEquals(after, before);
+        Assert.assertEquals(before, after);
     }
 
 
