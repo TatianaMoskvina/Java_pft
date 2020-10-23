@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class AddressData {
-    private String id;
+    private int id;
     private final String firstName;
     private final String middleName;
     private final String lastName;
@@ -29,27 +29,7 @@ public class AddressData {
     private final String notes;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AddressData that = (AddressData) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
-    }
-
-    public AddressData(String id, String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String group, String address2, String phone2, String notes) {
+    public AddressData(int id, String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String group, String address2, String phone2, String notes) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -79,7 +59,7 @@ public class AddressData {
     }
 
     public AddressData( String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String group, String address2, String phone2, String notes) {
-        this.id = null;
+        this.id = 0;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -107,7 +87,27 @@ public class AddressData {
         this.notes = notes;
     }
 
-    public String getId() { return id; }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AddressData that = (AddressData) o;
+
+        if (id != that.id) return false;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
+    }
+
+    public int getId() { return id; }
 
     @Override
     public String toString() {
@@ -218,4 +218,7 @@ public class AddressData {
         return group;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
