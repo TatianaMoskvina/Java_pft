@@ -92,14 +92,17 @@ public class AddressHelper extends HelperBase {
 
     public List<AddressData> getAddressList() {
         List<AddressData> addresses = new ArrayList<AddressData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("tr"));
-        for (WebElement element : elements) {
-            String name = element.getText();
-            AddressData address = new AddressData(name, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-            addresses.add(address);
+        List<WebElement> line = wd.findElements(By.xpath("//tr[@name='entry']"));
+        for (WebElement element : line) {
+            List<WebElement> cell = element.findElements(By.tagName("td"));
+            String firstname = cell.get(3).getText();
+            String lastname = cell.get(2).getText();
+            AddressData contact = new AddressData(firstname, lastname, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            addresses.add(contact);
         }
         return addresses;
     }
+
 
     public int Count() {
         return wd.findElements(By.xpath("//img[@alt='Edit']")).size();
