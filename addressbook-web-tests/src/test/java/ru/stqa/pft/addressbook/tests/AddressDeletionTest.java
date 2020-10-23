@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class AddressDeletionTest extends TestBase{
@@ -29,5 +30,10 @@ public class AddressDeletionTest extends TestBase{
         app.goTo().homePage();
         List<AddressData> after = app.getAddressHelper().getAddressList();
         Assert.assertEquals(after.size(), before.size() - 1);
+
+
+        before.remove(before.size()-1);
+        Assert.assertEquals(before, after);
+        Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
     }
 }

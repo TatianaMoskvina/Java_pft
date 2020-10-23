@@ -95,9 +95,10 @@ public class AddressHelper extends HelperBase {
         List<WebElement> line = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : line) {
             List<WebElement> cell = element.findElements(By.tagName("td"));
-            String firstname = cell.get(3).getText();
-            String lastname = cell.get(2).getText();
-            AddressData contact = new AddressData(firstname, lastname, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            String firstname = cell.get(2).getText();
+            String lastname = cell.get(1).getText();
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            AddressData contact = new AddressData(id, firstname, null, lastname, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
             addresses.add(contact);
         }
         return addresses;
