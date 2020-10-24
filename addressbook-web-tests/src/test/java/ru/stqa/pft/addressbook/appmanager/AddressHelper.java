@@ -78,7 +78,7 @@ public class AddressHelper extends HelperBase {
         return isElementPresent(By.xpath("//img[@alt='Edit']"));
     }
 
-    public void createAddress(AddressData addressData, boolean b) {
+    public void create(AddressData addressData, boolean b) {
         fillAddressForm(addressData, true);
         submitAddressCreation();
         wd.findElement(By.cssSelector("div.msgbox"));
@@ -86,11 +86,24 @@ public class AddressHelper extends HelperBase {
 
     }
 
+    public void modify(int index, AddressData address) {
+        selectAddress(index);
+        initAddressModification();
+        fillAddressForm(address, false);
+        submitAddressModification();
+    }
+
+    public void delete(int index) {
+        selectAddress(index);
+        deleteSelectedAddress();
+    }
+
+
     public void returnToHomePage() {
         click(By.linkText("home"));
     }
 
-    public List<AddressData> getAddressList() {
+    public List<AddressData> list() {
         List<AddressData> addresses = new ArrayList<AddressData>();
         List<WebElement> line = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : line) {
@@ -103,6 +116,7 @@ public class AddressHelper extends HelperBase {
         }
         return addresses;
     }
+
 
 
     public int Count() {
