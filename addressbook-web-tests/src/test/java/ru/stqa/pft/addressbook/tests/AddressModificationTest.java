@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,6 +39,10 @@ public class AddressModificationTest extends TestBase{
 
         before.remove(before.size()-1);
         before.add(address);
+        Comparator<? super AddressData> byId = (a1, a2) -> Integer.compare(a1.getId(), a2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
         Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
 
 

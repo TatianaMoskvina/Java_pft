@@ -58,8 +58,26 @@ public class AddressData {
         this.notes = notes;
     }
 
-    public AddressData( String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String group, String address2, String phone2, String notes) {
-        this.id = 0;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AddressData that = (AddressData) o;
+
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
+    }
+
+    public AddressData(String firstName, String middleName, String lastName, String nickname, String title, String company, String address, String homeNumber, String mobileNumber, String workNumber, String faxNumber, String email, String secondEmail, String thirdEmail, String homepage, String bDay, String bMonth, String bYear, String aday, String amonth, String ayear, String group, String address2, String phone2, String notes) {
+        this.id = Integer.MAX_VALUE;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -85,26 +103,6 @@ public class AddressData {
         this.address2 = address2;
         this.phone2 = phone2;
         this.notes = notes;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AddressData that = (AddressData) o;
-
-        if (id != that.id) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
     }
 
     public int getId() { return id; }
