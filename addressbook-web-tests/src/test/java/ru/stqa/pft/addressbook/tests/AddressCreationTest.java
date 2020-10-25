@@ -16,7 +16,8 @@ public class AddressCreationTest extends TestBase {
         app.goTo().homePage();
         List<AddressData> before = app.getAddressHelper().list();
         AddressData address = new AddressData(before.get(before.size()-1).getId(), "First name", "Middle name", "Last name", "Nickname", "title", "company", "address", "123456", "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text");
-        create(address);
+        app.goTo().gotoAddNewPage();
+        app.getAddressHelper().create(address);
         app.goTo().homePage();
         List<AddressData> after = app.getAddressHelper().list();
         Assert.assertEquals(after.size(), before.size() + 1);
@@ -34,12 +35,6 @@ public class AddressCreationTest extends TestBase {
         after.sort(byId);
         Assert.assertEquals(before, after);
         Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
-    }
-
-    private void create(AddressData address) {
-        app.goTo().gotoAddNewPage();
-        app.getAddressHelper().fillAddressForm(address, true);
-        app.getAddressHelper().submitAddressCreation();
     }
 
 

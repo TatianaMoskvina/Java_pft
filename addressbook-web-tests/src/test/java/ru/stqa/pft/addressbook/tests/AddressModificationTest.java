@@ -16,7 +16,7 @@ public class AddressModificationTest extends TestBase{
         app.goTo().homePage();
         if (app.getAddressHelper().list().size() == 0) {
             app.goTo().gotoAddNewPage();
-            app.getAddressHelper().create(new AddressData("First name", "Middle name", "Last name", "Nickname", "title", "company", "address", null, "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text"), true);
+            app.getAddressHelper().create(new AddressData("First name", "Middle name", "Last name", "Nickname", "title", "company", "address", null, "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text"));
             app.goTo().homePage();
         }
     }
