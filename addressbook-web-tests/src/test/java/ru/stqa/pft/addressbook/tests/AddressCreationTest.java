@@ -15,7 +15,7 @@ public class AddressCreationTest extends TestBase {
     public void testAddressCreation() throws Exception {
         app.goTo().homePage();
         List<AddressData> before = app.getAddressHelper().list();
-        AddressData address = new AddressData(before.get(before.size()-1).getId(), "First name", "Middle name", "Last name", "Nickname", "title", "company", "address", "123456", "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text");
+        AddressData address = new AddressData().withId(before.get(before.size()-1).getId()).withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();
@@ -28,7 +28,7 @@ public class AddressCreationTest extends TestBase {
                 max = a.getId();
             }
         }
-        address.setId(max);
+        address.withId(max);
         before.add(address);
         Comparator<? super AddressData> byId = (a1, a2) -> Integer.compare(a1.getId(), a2.getId());
         before.sort(byId);

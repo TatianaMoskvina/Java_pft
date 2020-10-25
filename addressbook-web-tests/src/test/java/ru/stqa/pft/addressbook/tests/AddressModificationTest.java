@@ -16,7 +16,7 @@ public class AddressModificationTest extends TestBase{
         app.goTo().homePage();
         if (app.getAddressHelper().list().size() == 0) {
             app.goTo().gotoAddNewPage();
-            app.getAddressHelper().create(new AddressData("First name", "Middle name", "Last name", "Nickname", "title", "company", "address", null, "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010","Group1" ,"address 2", "123678", "text"));
+            app.getAddressHelper().create(new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk"));
             app.goTo().homePage();
         }
     }
@@ -26,7 +26,7 @@ public class AddressModificationTest extends TestBase{
         app.goTo().homePage();
         List<AddressData> before = app.getAddressHelper().list();
         int index = before.size()-1;
-        AddressData address = new AddressData(before.get(index).getId(), "First name (edited)", "Middle name(edited)", "Last name(edited)", "Nickname", "title", "company", "address", "123456", "123456", "123456", "123456", "q@q.ru", "q1@q.ru", "q3@q.ru", "homepage", "1", "February", "1990", "6", "January", "2010",null ,"address 2", "123678", "text");
+        AddressData address = new AddressData().withId(before.get(before.size()-1).getId()).withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
         app.getAddressHelper().modify(index, address);
         app.goTo().homePage();
         List<AddressData> after = app.getAddressHelper().list();

@@ -24,32 +24,9 @@ public class AddressHelper extends HelperBase {
         type(By.name("firstname"), addressData.getFirstName());
         type(By.name("middlename"), addressData.getMiddleName());
         type(By.name("lastname"), addressData.getLastName());
-        type(By.name("nickname"), addressData.getNickname());
-        //wd.findElement(By.name("photo")).sendKeys("Users/tatiana_moskvina/Desktop/День рождения Жени 2020 уже на хард)\DSCF4588.jpg");
-        type(By.name("title"), addressData.getTitle());
-        type(By.name("company"), addressData.getCompany());
         type(By.name("address"), addressData.getAddress());
-        type(By.name("home"), addressData.getHomeNumber());
-        type(By.name("mobile"), addressData.getMobileNumber());
-        type(By.name("work"), addressData.getWorkNumber());
-        type(By.name("fax"), addressData.getFaxNumber());
         type(By.name("email"), addressData.getEmail());
-        type(By.name("email2"), addressData.getSecondEmail());
-        type(By.name("email3"), addressData.getThirdEmail());
-        type(By.name("homepage"), addressData.getHomepage());
-        select(wd.findElement(By.name("bday")), addressData.getbDay());
-        select(wd.findElement(By.name("bmonth")), addressData.getbMonth());
-        type(By.name("byear"), addressData.getbYear());
-        select(wd.findElement(By.name("aday")), addressData.getAday());
-        select(wd.findElement(By.name("amonth")), addressData.getAmonth());
-        type(By.name("ayear"), addressData.getAyear());
-        type(By.name("address2"), addressData.getAddress2());
-        type(By.name("phone2"), addressData.getPhone2());
-        type(By.name("notes"), addressData.getNotes());
 
-        if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
-        } else Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
 
@@ -109,7 +86,7 @@ public class AddressHelper extends HelperBase {
             String firstname = cell.get(2).getText();
             String lastname = cell.get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            AddressData contact = new AddressData(id, firstname, null, lastname, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            AddressData contact = new AddressData().withId(id).withFirstName(firstname).withLastName(lastname);
             addresses.add(contact);
         }
         return addresses;
