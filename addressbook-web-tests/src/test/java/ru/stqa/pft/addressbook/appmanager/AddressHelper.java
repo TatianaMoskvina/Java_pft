@@ -45,6 +45,10 @@ public class AddressHelper extends HelperBase {
         click(By.xpath("//img[@alt='Edit']"));
     }
 
+    public void initAddressModificationById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    }
+
     public void submitAddressModification() {
         click(By.name("update"));
     }
@@ -71,7 +75,7 @@ public class AddressHelper extends HelperBase {
 
     public void modify(AddressData address) {
         selectAddressById(address.getId());
-        initAddressModification();
+        initAddressModificationById(address.getId());
         fillAddressForm(address, false);
         submitAddressModification();
     }
