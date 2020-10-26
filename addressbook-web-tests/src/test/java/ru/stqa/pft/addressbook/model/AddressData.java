@@ -7,6 +7,7 @@ public class AddressData {
     private String lastName;
     private String address;
     private String email;
+    private String number;
 
 
     @Override
@@ -34,6 +35,8 @@ public class AddressData {
     public String getAddress() { return address; }
 
     public String getEmail() { return email; }
+
+    public String getNumber() { return number; }
 
 
 
@@ -66,6 +69,11 @@ public class AddressData {
 
     public AddressData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public AddressData withNumber(String number) {
+        this.number = number;
         return this;
     }
 

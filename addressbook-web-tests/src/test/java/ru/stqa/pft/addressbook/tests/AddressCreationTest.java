@@ -22,7 +22,7 @@ public class AddressCreationTest extends TestBase {
     public void testAddressCreation() throws Exception {
         app.goTo().homePage();
         Addresses before = app.getAddressHelper().all();
-        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
+        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withNumber("123123123");
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();

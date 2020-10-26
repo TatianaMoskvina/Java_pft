@@ -23,7 +23,7 @@ public class AddressModificationTest extends TestBase{
         app.goTo().homePage();
         if (app.getAddressHelper().list().size() == 0) {
             app.goTo().gotoAddNewPage();
-            app.getAddressHelper().create(new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk"));
+            app.getAddressHelper().create(new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withNumber("123123123"));
             app.goTo().homePage();
         }
     }

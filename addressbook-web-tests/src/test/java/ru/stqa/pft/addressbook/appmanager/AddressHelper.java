@@ -29,6 +29,7 @@ public class AddressHelper extends HelperBase {
         type(By.name("lastname"), addressData.getLastName());
         type(By.name("address"), addressData.getAddress());
         type(By.name("email"), addressData.getEmail());
+        type(By.name("mobile"), addressData.getNumber());
 
     }
 
