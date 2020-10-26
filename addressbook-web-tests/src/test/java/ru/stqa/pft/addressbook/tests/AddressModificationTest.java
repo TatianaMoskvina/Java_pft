@@ -1,12 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Addresses;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertEquals;
 
 
 public class AddressModificationTest extends TestBase{
@@ -24,21 +31,15 @@ public class AddressModificationTest extends TestBase{
     @Test
     public void testAddressModification() {
         app.goTo().homePage();
-        List<AddressData> before = app.getAddressHelper().list();
-        int index = before.size()-1;
-        AddressData address = new AddressData().withId(before.get(before.size()-1).getId()).withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
-        app.getAddressHelper().modify(index, address);
+        Addresses before = app.getAddressHelper().all();
+        AddressData modifiedAddress = before.iterator().next();
+        AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
+        app.getAddressHelper().modify(address);
         app.goTo().homePage();
-        List<AddressData> after = app.getAddressHelper().list();
-        Assert.assertEquals(after.size(), before.size());
+        Addresses after = app.getAddressHelper().all();
+        assertEquals(after.size(), before.size());
 
-
-        before.remove(index);
-        before.add(address);
-        Comparator<? super AddressData> byId = (a1, a2) -> Integer.compare(a1.getId(), a2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
 
 
 

@@ -1,11 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Addresses;
 
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class AddressDeletionTest extends TestBase{
 
@@ -22,16 +30,14 @@ public class AddressDeletionTest extends TestBase{
     @Test
     public void testAddressDeletion() {
         app.goTo().homePage();
-        List<AddressData> before = app.getAddressHelper().list();
-        int index = before.size()-1;
-        app.getAddressHelper().delete(index);
+        Addresses before = app.getAddressHelper().all();
+        AddressData deletedAddress = before.iterator().next();
+        app.getAddressHelper().delete(deletedAddress);
         app.goTo().homePage();
-        List<AddressData> after = app.getAddressHelper().list();
-        Assert.assertEquals(after.size(), index);
+        Addresses after = app.getAddressHelper().all();
+        assertEquals(after.size(), before.size() - 1);
 
-
-        before.remove(before.size()-1);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(deletedAddress)));
     }
 
 
