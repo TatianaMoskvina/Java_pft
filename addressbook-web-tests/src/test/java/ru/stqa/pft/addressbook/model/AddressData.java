@@ -7,7 +7,9 @@ public class AddressData {
     private String lastName;
     private String address;
     private String email;
-    private String number;
+    private String home;
+    private String mobile;
+    private String work;
 
 
     @Override
@@ -36,7 +38,11 @@ public class AddressData {
 
     public String getEmail() { return email; }
 
-    public String getNumber() { return number; }
+    public String getHome() { return home; }
+
+    public String getMobile() { return mobile; }
+
+    public String getWork() { return work; }
 
 
 
@@ -72,8 +78,18 @@ public class AddressData {
         return this;
     }
 
-    public AddressData withNumber(String number) {
-        this.number = number;
+    public AddressData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public AddressData withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public AddressData withWork(String work) {
+        this.work = work;
         return this;
     }
 

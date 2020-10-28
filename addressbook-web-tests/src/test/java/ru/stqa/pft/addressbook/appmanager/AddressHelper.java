@@ -3,16 +3,11 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
-import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AddressHelper extends HelperBase {
 
@@ -32,7 +27,9 @@ public class AddressHelper extends HelperBase {
         type(By.name("lastname"), addressData.getLastName());
         type(By.name("address"), addressData.getAddress());
         type(By.name("email"), addressData.getEmail());
-        type(By.name("mobile"), addressData.getNumber());
+        type(By.name("home"), addressData.getHome());
+        type(By.name("mobile"), addressData.getHome());
+        type(By.name("work"), addressData.getHome());
 
     }
 

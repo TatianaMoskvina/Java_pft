@@ -34,6 +34,7 @@ public class AddressDeletionTest extends TestBase{
         AddressData deletedAddress = before.iterator().next();
         app.getAddressHelper().delete(deletedAddress);
         app.goTo().homePage();
+        assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size()-1));
         Addresses after = app.getAddressHelper().all();
         assertEquals(after.size(), before.size() - 1);
 

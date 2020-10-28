@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -23,7 +24,7 @@ public class AddressModificationTest extends TestBase{
         app.goTo().homePage();
         if (app.getAddressHelper().list().size() == 0) {
             app.goTo().gotoAddNewPage();
-            app.getAddressHelper().create(new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withNumber("123123123"));
+            app.getAddressHelper().create(new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123"));
             app.goTo().homePage();
         }
     }
@@ -36,6 +37,7 @@ public class AddressModificationTest extends TestBase{
         AddressData address = new AddressData().withId(modifiedAddress.getId()).withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk");
         app.getAddressHelper().modify(address);
         app.goTo().homePage();
+        assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size()));
         Addresses after = app.getAddressHelper().all();
         assertEquals(after.size(), before.size());
 

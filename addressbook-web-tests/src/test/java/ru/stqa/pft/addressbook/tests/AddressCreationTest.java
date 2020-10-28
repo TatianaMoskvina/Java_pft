@@ -22,12 +22,12 @@ public class AddressCreationTest extends TestBase {
     public void testAddressCreation() throws Exception {
         app.goTo().homePage();
         Addresses before = app.getAddressHelper().all();
-        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withNumber("123123123");
+        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123");
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();
+        assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size()+1));
         Addresses after = app.getAddressHelper().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
 
 //        int max = 0;
 //        for (AddressData a : after) {
