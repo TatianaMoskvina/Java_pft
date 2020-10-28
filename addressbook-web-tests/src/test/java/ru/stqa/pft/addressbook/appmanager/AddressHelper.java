@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public class AddressHelper extends HelperBase {
+
+    private Addresses addressCache = null;
 
     public AddressHelper(WebDriver wd) {
         super(wd);
@@ -69,6 +72,7 @@ public class AddressHelper extends HelperBase {
     public void create(AddressData addressData) {
         fillAddressForm(addressData, true);
         submitAddressCreation();
+        addressCache = null;
         wd.findElement(By.cssSelector("div.msgbox"));
         //wd.findElement(By.linkText("add next"));
 
@@ -79,6 +83,7 @@ public class AddressHelper extends HelperBase {
         initAddressModificationById(address.getId());
         fillAddressForm(address, false);
         submitAddressModification();
+        addressCache = null;
     }
 
     public void delete(int index) {
@@ -89,6 +94,7 @@ public class AddressHelper extends HelperBase {
     public void delete(AddressData address) {
         selectAddressById(address.getId());
         deleteSelectedAddress();
+        addressCache = null;
     }
 
 
@@ -111,7 +117,10 @@ public class AddressHelper extends HelperBase {
     }
 
     public Addresses all() {
-        Addresses addresses = new Addresses();
+        if (addressCache != null) {
+            return new Addresses(addressCache);
+        }
+        addressCache = new Addresses();
         List<WebElement> line = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : line) {
             List<WebElement> cell = element.findElements(By.tagName("td"));
@@ -119,9 +128,9 @@ public class AddressHelper extends HelperBase {
             String lastname = cell.get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             AddressData contact = new AddressData().withId(id).withFirstName(firstname).withLastName(lastname);
-            addresses.add(contact);
+            addressCache.add(contact);
         }
-        return addresses;
+        return addressCache;
     }
 
 
