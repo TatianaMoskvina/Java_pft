@@ -27,6 +27,8 @@ public class AddressHelper extends HelperBase {
         type(By.name("lastname"), addressData.getLastName());
         type(By.name("address"), addressData.getAddress());
         type(By.name("email"), addressData.getEmail());
+        type(By.name("email2"), addressData.getEmail2());
+        type(By.name("email3"), addressData.getEmail3());
         type(By.name("home"), addressData.getHome());
         type(By.name("mobile"), addressData.getHome());
         type(By.name("work"), addressData.getHome());
@@ -40,7 +42,10 @@ public class AddressHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
-        return new AddressData().withId(address.getId()).withFirstName(firstName).withLastName(lastName).withHome(home).withMobile(mobile).withWork(work);
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        return new AddressData().withId(address.getId()).withFirstName(firstName).withLastName(lastName).withHome(home).withMobile(mobile).withWork(work).withEmail(email).withEmail2(email2).withEmail3(email3);
 
     }
 
@@ -136,9 +141,11 @@ public class AddressHelper extends HelperBase {
             String firstname = cell.get(2).getText();
             String lastname = cell.get(1).getText();
             String allPhones = cell.get(5).getText();
-            AddressData contact = new AddressData().withId(id).withFirstName(firstname).
-                    withLastName(lastname).withAllPhones(allPhones);
-            addressCache.add(contact);
+            String allEmails = cell.get(4).getText();
+            String allAdrs = cell.get(3).getText();
+            AddressData address = new AddressData().withId(id).withFirstName(firstname).
+                    withLastName(lastname).withAllPhones(allPhones).withAllEmails(allEmails).withAllAdrs(allAdrs);
+            addressCache.add(address);
         }
         return addressCache;
     }
