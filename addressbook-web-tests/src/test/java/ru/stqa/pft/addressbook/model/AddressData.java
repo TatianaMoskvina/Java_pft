@@ -10,6 +10,7 @@ public class AddressData {
     private String home;
     private String mobile;
     private String work;
+    private String allPhones;
 
 
     @Override
@@ -43,6 +44,8 @@ public class AddressData {
     public String getMobile() { return mobile; }
 
     public String getWork() { return work; }
+
+    public String getAllPhones() { return allPhones; }
 
 
 
@@ -90,6 +93,11 @@ public class AddressData {
 
     public AddressData withWork(String work) {
         this.work = work;
+        return this;
+    }
+
+    public AddressData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 

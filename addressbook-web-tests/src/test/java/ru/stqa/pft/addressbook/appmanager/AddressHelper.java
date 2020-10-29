@@ -33,6 +33,17 @@ public class AddressHelper extends HelperBase {
 
     }
 
+    public AddressData infoFromEditForm(AddressData address) {
+        initAddressModificationById(address.getId());
+        String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        return new AddressData().withId(address.getId()).withFirstName(firstName).withLastName(lastName).withHome(home).withMobile(mobile).withWork(work);
+
+    }
+
 
     public void selectAddress(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
@@ -121,10 +132,12 @@ public class AddressHelper extends HelperBase {
         List<WebElement> line = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : line) {
             List<WebElement> cell = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String firstname = cell.get(2).getText();
             String lastname = cell.get(1).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            AddressData contact = new AddressData().withId(id).withFirstName(firstname).withLastName(lastname);
+            String allPhones = cell.get(5).getText();
+            AddressData contact = new AddressData().withId(id).withFirstName(firstname).
+                    withLastName(lastname).withAllPhones(allPhones);
             addressCache.add(contact);
         }
         return addressCache;
