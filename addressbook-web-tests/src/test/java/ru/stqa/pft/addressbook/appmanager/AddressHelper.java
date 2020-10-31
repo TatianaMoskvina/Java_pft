@@ -26,6 +26,7 @@ public class AddressHelper extends HelperBase {
         type(By.name("middlename"), addressData.getMiddleName());
         type(By.name("lastname"), addressData.getLastName());
         type(By.name("address"), addressData.getAddress());
+        attach(By.name("photo"), addressData.getPhoto());
         type(By.name("email"), addressData.getEmail());
         type(By.name("email2"), addressData.getEmail2());
         type(By.name("email3"), addressData.getEmail3());
@@ -144,7 +145,7 @@ public class AddressHelper extends HelperBase {
             String allEmails = cell.get(4).getText();
             String allAdrs = cell.get(3).getText();
             AddressData address = new AddressData().withId(id).withFirstName(firstname).
-                    withLastName(lastname).withAllPhones(allPhones).withAllEmails(allEmails).withAllAdrs(allAdrs);
+                    withLastName(lastname).withAllPhones(allPhones).withAllEmails(allEmails);
             addressCache.add(address);
         }
         return addressCache;

@@ -8,6 +8,7 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +22,9 @@ public class AddressCreationTest extends TestBase {
     @Test
     public void testAddressCreation() throws Exception {
         app.goTo().homePage();
+        File photo = new File("src/test/resources/photo.jpg");
         Addresses before = app.getAddressHelper().all();
-        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123");
+        AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123").withPhoto(photo);
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();

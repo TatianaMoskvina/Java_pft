@@ -46,5 +46,5 @@ public class AddressContactsTest extends TestBase {
     public static String cleaned(String phone) {
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
-    
+
 }
