@@ -23,21 +23,23 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class AddressCreationTest extends TestBase {
 
     @DataProvider
-        public Iterator<Object[]> validAddressesFromJson() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addresses.json")));
-        String json = "";
-        String line = reader.readLine();
-        while (line != null) {
-            json += line;
-            line = reader.readLine();
+    public Iterator<Object[]> validAddressesFromJson() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addresses.json")))) {
+            String json = "";
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+            Gson gson = new Gson();
+            List<AddressData> address = gson.fromJson(json.toString(), new TypeToken<List<AddressData>>() {
+            }.getType());
+            return address.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<AddressData> contacts = gson.fromJson(json.toString(), new TypeToken<List<AddressData>>() {
-        }.getType());
-        return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+
     }
 
-    @Test (dataProvider = "validAddressesFromJson")
+    @Test(dataProvider = "validAddressesFromJson")
     public void testAddressCreation(AddressData address) throws Exception {
         app.goTo().homePage();
         File photo = new File("src/test/resources/photo.jpg");
@@ -46,7 +48,7 @@ public class AddressCreationTest extends TestBase {
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();
-        assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size()+1));
+        assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size() + 1));
         Addresses after = app.getAddressHelper().all();
 
 //        int max = 0;
