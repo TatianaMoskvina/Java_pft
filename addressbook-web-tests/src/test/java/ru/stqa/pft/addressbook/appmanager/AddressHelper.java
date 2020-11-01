@@ -43,10 +43,11 @@ public class AddressHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String adrs = wd.findElement(By.name("address")).getText();
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-        return new AddressData().withId(address.getId()).withFirstName(firstName).withLastName(lastName).withHome(home).withMobile(mobile).withWork(work).withEmail(email).withEmail2(email2).withEmail3(email3);
+        return new AddressData().withId(address.getId()).withFirstName(firstName).withLastName(lastName).withHome(home).withMobile(mobile).withWork(work).withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(adrs);
 
     }
 
@@ -143,9 +144,9 @@ public class AddressHelper extends HelperBase {
             String lastname = cell.get(1).getText();
             String allPhones = cell.get(5).getText();
             String allEmails = cell.get(4).getText();
-            String allAdrs = cell.get(3).getText();
+            String Adrs = cell.get(3).getText();
             AddressData address = new AddressData().withId(id).withFirstName(firstname).
-                    withLastName(lastname).withAllPhones(allPhones).withAllEmails(allEmails);
+                    withLastName(lastname).withAllPhones(allPhones).withAllEmails(allEmails).withAddress(Adrs);
             addressCache.add(address);
         }
         return addressCache;
