@@ -1,41 +1,65 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name="addressbook")
 public class AddressData {
+    @Id
+    @Column(name="id")
     private int id= Integer.MAX_VALUE;
     @Expose
+    @Column(name="firstname")
     private String firstName;
     private String middleName;
     @Expose
+    @Column(name="lastname")
     private String lastName;
     @Expose
+    @Type(type = "text")
+    @Column(name="address")
     private String address;
     @Expose
+    @Type(type = "text")
     private String email;
+    @Type(type = "text")
     private String email2;
+    @Type(type = "text")
     private String email3;
     @Expose
+    @Type(type = "text")
+    @Column(name="home")
     private String home;
     @Expose
+    @Type(type = "text")
+    @Column(name="mobile")
     private String mobile;
     @Expose
+    @Type(type = "text")
+    @Column(name="work")
     private String work;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
-    private File photo;
-
 
     @Override
     public String toString() {
         return "AddressData{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
+    @Column(name="photo")
+    @Type(type = "text")
+    private String photo;
+
 
     public int getId() { return id; }
 
@@ -68,7 +92,7 @@ public class AddressData {
 
     public String getAllEmails() { return allEmails; }
 
-    public File getPhoto() { return photo; }
+    public File getPhoto() { return new File(photo); }
 
 
 
@@ -141,7 +165,7 @@ public class AddressData {
     }
 
     public AddressData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
