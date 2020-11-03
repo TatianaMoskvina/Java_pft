@@ -15,3 +15,4 @@ gradle-app.setting
 /Sandbox/build/
 /Sandbox/gradle/
 /addressbook-web-tests/build/
+*.log
