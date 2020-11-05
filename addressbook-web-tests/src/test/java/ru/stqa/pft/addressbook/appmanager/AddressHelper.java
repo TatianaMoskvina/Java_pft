@@ -26,7 +26,7 @@ public class AddressHelper extends HelperBase {
         type(By.name("middlename"), addressData.getMiddleName());
         type(By.name("lastname"), addressData.getLastName());
         type(By.name("address"), addressData.getAddress());
-        attach(By.name("photo"), addressData.getPhoto());
+        //attach(By.name("photo"), addressData.getPhoto());
         type(By.name("email"), addressData.getEmail());
         type(By.name("email2"), addressData.getEmail2());
         type(By.name("email3"), addressData.getEmail3());

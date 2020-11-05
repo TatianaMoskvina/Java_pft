@@ -7,32 +7,5 @@
     "home": "8 (222) 123-123- 0",
     "mobile": "8913 111 222 0",
     "work": "123-1230"
-  },
-  {
-    "firstName": "firstname 1",
-    "lastName": "lastname 1",
-    "address": "address 1",
-    "email": "mail1@email",
-    "home": "8 (222) 123-123- 1",
-    "mobile": "8913 111 222 1",
-    "work": "123-1231"
-  },
-  {
-    "firstName": "firstname 2",
-    "lastName": "lastname 2",
-    "address": "address 2",
-    "email": "mail2@email",
-    "home": "8 (222) 123-123- 2",
-    "mobile": "8913 111 222 2",
-    "work": "123-1232"
-  },
-  {
-    "firstName": "firstname 3",
-    "lastName": "lastname 3",
-    "address": "address 3",
-    "email": "mail3@email",
-    "home": "8 (222) 123-123- 3",
-    "mobile": "8913 111 222 3",
-    "work": "123-1233"
   }
 ]

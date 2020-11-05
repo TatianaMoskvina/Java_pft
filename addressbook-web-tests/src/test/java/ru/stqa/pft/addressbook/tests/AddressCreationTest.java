@@ -43,13 +43,16 @@ public class AddressCreationTest extends TestBase {
     public void testAddressCreation(AddressData address) throws Exception {
         app.goTo().homePage();
         File photo = new File("src/test/resources/photo.jpg");
-        Addresses before = app.getAddressHelper().all();
+        //Addresses before = app.getAddressHelper().all();
+        Addresses before = app.db().address();
         //AddressData address = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123").withPhoto(photo);
         app.goTo().gotoAddNewPage();
         app.getAddressHelper().create(address);
         app.goTo().homePage();
         assertThat(app.getAddressHelper().Count(), CoreMatchers.equalTo(before.size() + 1));
-        Addresses after = app.getAddressHelper().all();
+        //Addresses after = app.getAddressHelper().all();
+        Addresses after = app.db().address();
+
 
 //        int max = 0;
 //        for (AddressData a : after) {
