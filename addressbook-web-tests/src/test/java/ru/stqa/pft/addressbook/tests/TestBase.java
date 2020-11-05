@@ -8,9 +8,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.Addresses;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 
 public class TestBase {
@@ -35,8 +43,29 @@ public class TestBase {
         logger.info("Start test" + m.getName() + "with parameters" + Arrays.asList(p));
     }
 
-    @AfterMethod (alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void logTestStop(Method m, Object[] p) {
-        logger.info("Stop test" + m.getName()+ "with parameters" + Arrays.asList(p));
+        logger.info("Stop test" + m.getName() + "with parameters" + Arrays.asList(p));
     }
-}
+
+    public void verifyGroupListInUi() {
+        if (Boolean.getBoolean("verifyUI")) {
+            Groups dbGroups = app.db().groups();
+            Groups uiGroups = app.group().all();
+            assertThat(uiGroups, equalTo(dbGroups.stream()
+                    .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+
+    public void verifyContactListInUi() {
+        //if (Boolean.getBoolean("verifyUI")) {
+            Addresses dbAddress = app.db().address();
+            Addresses uiAddress = app.getAddressHelper().all();
+            assertThat(uiAddress, equalTo(dbAddress.stream()
+                    .map((g) -> new AddressData().withId(g.getId()).withFirstName(g.getFirstName())
+                            .withLastName(g.getLastName()).withAddress(g.getAddress()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+

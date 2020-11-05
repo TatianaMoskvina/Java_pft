@@ -65,7 +65,7 @@ public class AddressCreationTest extends TestBase {
 
         assertThat(after, equalTo(
                 before.withAdded(address.withId(after.stream().mapToInt((a) -> a.getId()).max().getAsInt()))));
-
+        verifyContactListInUi();
 //        Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
     }
 
