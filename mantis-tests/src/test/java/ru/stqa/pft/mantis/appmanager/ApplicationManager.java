@@ -14,15 +14,14 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public WebDriver wd;
+    private final String browser;
     private final Properties properties;
 
-    private String browser;
 
 
     public ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
-
     }
 
     public void init() throws IOException {
@@ -37,14 +36,19 @@ public class ApplicationManager {
         }
         wd.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));
-
-
     }
 
-
     public void stop() {
-        wd.findElement(By.linkText("Logout")).click();
+        //wd.findElement(By.linkText("Logout")).click();
         wd.quit();
+    }
+
+    public HttpSession newSession() {
+        return new HttpSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 
 }
