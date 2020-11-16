@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,10 @@ public class AddressHelper extends HelperBase {
 
     }
 
+    public void addToGroup(AddressData findAddress) {
+        selectAddressById(findAddress.getId());
+        wd.findElement(By.name("add")).click();
+    }
 
     public boolean isThereAAddress() {
         return isElementPresent(By.xpath("//img[@alt='Edit']"));
@@ -151,7 +156,6 @@ public class AddressHelper extends HelperBase {
         }
         return addressCache;
     }
-
 
 
     public int Count() {
