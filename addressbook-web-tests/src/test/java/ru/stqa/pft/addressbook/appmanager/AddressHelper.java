@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 import org.openqa.selenium.support.ui.Select;
@@ -34,6 +35,15 @@ public class AddressHelper extends HelperBase {
         type(By.name("home"), addressData.getHome());
         type(By.name("mobile"), addressData.getHome());
         type(By.name("work"), addressData.getHome());
+
+        if (creation) {
+            if (AddressData.getGroups().size() > 0) {
+                Assert.assertTrue(AddressData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(AddressData.getGroups().iterator().next().getName());
+
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));	            	        }
 
     }
 
