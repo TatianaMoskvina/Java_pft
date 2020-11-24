@@ -1,4 +1,4 @@
-package ru.stqa.pft.mantis.appmanager;
+package ru.stqa.pft.soap.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

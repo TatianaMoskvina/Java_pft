@@ -1,4 +1,4 @@
-package ru.stqa.pft.mantis.appmanager;
+package ru.stqa.pft.soap.appmanager;
 
 
 import org.apache.commons.net.ftp.FTPClient;
