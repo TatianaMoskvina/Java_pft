@@ -1,4 +1,4 @@
-package ru.stqa.pft.soap.appmanager;
+package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +20,7 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private ru.stqa.pft.mantis.appmanager.SoapHelper soapHelper;
 
 
     public ApplicationManager(String browser) {
@@ -87,6 +88,14 @@ public class ApplicationManager {
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
+    }
+
+    public SoapHelper soap() {
+        if (soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
+
     }
 }
 

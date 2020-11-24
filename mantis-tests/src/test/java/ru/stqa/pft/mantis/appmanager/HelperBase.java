@@ -1,4 +1,4 @@
-package ru.stqa.pft.soap.appmanager;
+package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;

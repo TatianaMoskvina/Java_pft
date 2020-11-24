@@ -1,8 +1,8 @@
-package ru.stqa.pft.soap.tests;
+package ru.stqa.pft.mantis.tests;
 
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
-import ru.stqa.pft.soap.model.MailMessage;
+import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
