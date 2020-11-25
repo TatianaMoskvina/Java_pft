@@ -201,4 +201,9 @@ public class AddressData {
         return this;
     }
 
+    public AddressData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
 }

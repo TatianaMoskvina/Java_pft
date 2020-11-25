@@ -99,5 +99,14 @@ public class GroupData {
                 '}';
     }
 
+    public boolean addressPresent(AddressData address) {
+        for (GroupData group : address.getGroups()) {
+            if (group.getId() == this.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

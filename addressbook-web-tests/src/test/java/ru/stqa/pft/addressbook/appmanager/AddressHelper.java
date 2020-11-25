@@ -7,6 +7,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Addresses;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +91,17 @@ public class AddressHelper extends HelperBase {
 
     }
 
-    public void addToGroup(AddressData findAddress) {
-        selectAddressById(findAddress.getId());
+    public void addToGroup(AddressData address, GroupData group) {
+        selectAddressById(address.getId());
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
         wd.findElement(By.name("add")).click();
+        click(By.xpath(".//a[contains(text(),'group page')]"));
+    }
+
+    public void removeAddressFromGroup(AddressData address, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        selectAddressById(address.getId());
+        click(By.name("remove"));
     }
 
     public boolean isThereAAddress() {
@@ -166,6 +175,7 @@ public class AddressHelper extends HelperBase {
         }
         return addressCache;
     }
+
 
 
     public int Count() {

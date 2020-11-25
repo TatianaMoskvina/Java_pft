@@ -42,4 +42,11 @@ public class DBHelber {
         return new Addresses(result);
     }
 
+    public AddressData GetAddressById(int id) {
+        Session session = sessionFactory.openSession();
+        AddressData addressData = session.get(AddressData.class, id);
+        session.close();
+        return addressData;
+    }
+
 }
