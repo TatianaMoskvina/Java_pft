@@ -34,7 +34,7 @@ public class MailHelper {
         throw new Error("No mail :(");
     }
 
-
+    // преобразование реальных почтовых сообщений в наши модельные
     public static MailMessage toModelMail(WiserMessage m) {
         try {
             MimeMessage mm = m.getMimeMessage();

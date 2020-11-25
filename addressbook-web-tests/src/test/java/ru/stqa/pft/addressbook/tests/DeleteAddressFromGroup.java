@@ -16,7 +16,7 @@ public class DeleteAddressFromGroup extends TestBase {
     public void ensurePreconditions() {
         Groups groups = app.db().groups();
         if (app.db().address().size() == 0) {
-            AddressData newAddress = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123").inGroup(groups.iterator().next());
+            AddressData newAddress = new AddressData().withFirstName("Ivan").withLastName("Petrov").withEmail("q@q.ru").withAddress("Tomsk").withHome("123123123").withMobile("+72342342342").withWork("123123").withGroup(groups.iterator().next());
             app.getAddressHelper().create(newAddress);
             app.goTo().homePage();
         }
@@ -25,26 +25,26 @@ public class DeleteAddressFromGroup extends TestBase {
     }
 
     @Test
-    public void testRemovingContactFromGroup() {
+    public void testDeleteAddressFromGroup() {
         Groups groups = app.db().groups();
         Addresses before = app.db().address();
         app.goTo().homePage();
-        AddressData removingContact = before.iterator().next(); //removingContact
+        AddressData removedAddress = before.iterator().next();
         GroupData group = groups.iterator().next();
 
-        if (removingContact.getGroups().size() == 0) {
+        if (removedAddress.getGroups().size() == 0) {
             app.goTo().groupPage();
-            app.getAddressHelper().addToGroup(removingContact, group);
+            app.getAddressHelper().addToGroup(removedAddress, group);
         }
 
-        int contactId = removingContact.getId();
-        AddressData newAddrress = app.db().GetAddressById(contactId);
-        Groups groupsOfContactBefore = newAddrress.getGroups();
+        int addressId = removedAddress.getId();
+        AddressData newAddrress = app.db().GetAddressById(addressId);
+        Groups groupsForAddressBefore = newAddrress.getGroups();
         app.goTo().homePage();
-        GroupData groupWithoutContact = newAddrress.getGroups().iterator().next();
-        app.getAddressHelper().removeAddressFromGroup(removingContact, groupWithoutContact);
-        Groups groupsOfContactAfter = app.db().GetAddressById(contactId).getGroups();
-        assertThat(groupsOfContactBefore.size() - 1, equalTo(groupsOfContactAfter.size()));
-        assertThat(groupsOfContactAfter, equalTo(groupsOfContactBefore.without(groupWithoutContact)));
+        GroupData groupWithDeletedAddress = newAddrress.getGroups().iterator().next();
+        app.getAddressHelper().removeAddressFromGroup(removedAddress, groupWithDeletedAddress);
+        Groups groupsForAddressAfter = app.db().GetAddressById(addressId).getGroups();
+        assertThat(groupsForAddressBefore.size() - 1, equalTo(groupsForAddressAfter.size()));
+        assertThat(groupsForAddressAfter, equalTo(groupsForAddressBefore.without(groupWithDeletedAddress)));
     }
 }

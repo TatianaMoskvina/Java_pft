@@ -3,8 +3,8 @@ package ru.stqa.pft.mantis.appmanager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,41 +13,21 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-    private WebDriver wd;
     private final String browser;
+    private WebDriver wd;
+
     private final Properties properties;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
-    private ru.stqa.pft.mantis.appmanager.SoapHelper soapHelper;
-
+    private DbHelper dbHelper;
+    private UserHelper usersHelper;
+    private SoapHelper soapHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
-    }
-
-    public FtpHelper ftp() {
-        if (ftp == null) {
-            ftp = new FtpHelper(this);
-        }
-        return ftp;
-    }
-
-    public MailHelper mail(){
-        if (mailHelper == null) {
-            mailHelper = new MailHelper(this);
-        }
-        return mailHelper;
-    }
-
-    public JamesHelper james() {
-        if (jamesHelper == null) {
-            jamesHelper = new JamesHelper(this);
-        }
-        return jamesHelper;
-
     }
 
     public void init() throws IOException {
@@ -71,23 +51,48 @@ public class ApplicationManager {
 
     public RegistrationHelper registration() {
         if (registrationHelper == null) {
-        registrationHelper = new RegistrationHelper(this);}
+            registrationHelper = new RegistrationHelper(this);
+        }
         return registrationHelper;
     }
 
+    public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
+
+    //ленивая инициализация драйвера
     public WebDriver getDriver() {
         if (wd == null) {
             if (browser.equals(BrowserType.FIREFOX)) {
                 wd = new FirefoxDriver();
             } else if (browser.equals(BrowserType.CHROME)) {
                 wd = new ChromeDriver();
-            } else if (browser.equals(BrowserType.SAFARI)) {
-                wd = new SafariDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                wd = new InternetExplorerDriver();
             }
-            wd.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS); //имплицитное ожидание
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
+    }
+
+    //вновь реализуем механизм ленивой инициализации
+
+    public MailHelper mail() {
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
+
+    public JamesHelper james() {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
     }
 
     public SoapHelper soap() {
@@ -95,8 +100,19 @@ public class ApplicationManager {
             soapHelper = new SoapHelper(this);
         }
         return soapHelper;
+    }
 
+    public UserHelper usersHelper() {
+        if (usersHelper == null) {
+            usersHelper = new UserHelper(this);
+        }
+        return usersHelper;
+    }
+
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+        return dbHelper;
     }
 }
-
-

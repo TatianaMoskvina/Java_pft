@@ -9,21 +9,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="addressbook")
+@Table(name = "addressbook")
 public class AddressData {
     @Id
-    @Column(name="id")
-    private int id= Integer.MAX_VALUE;
+    @Column(name = "id")
+    private int id = Integer.MAX_VALUE;
     @Expose
-    @Column(name="firstname")
+    @Column(name = "firstname")
     private String firstName;
     private String middleName;
     @Expose
-    @Column(name="lastname")
+    @Column(name = "lastname")
     private String lastName;
     @Expose
     @Type(type = "text")
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
     @Expose
     @Type(type = "text")
@@ -34,15 +34,15 @@ public class AddressData {
     private String email3;
     @Expose
     @Type(type = "text")
-    @Column(name="home")
+    @Column(name = "home")
     private String home;
     @Expose
     @Type(type = "text")
-    @Column(name="mobile")
+    @Column(name = "mobile")
     private String mobile;
     @Expose
     @Type(type = "text")
-    @Column(name="work")
+    @Column(name = "work")
     private String work;
     @Transient
     private String allPhones;
@@ -50,8 +50,7 @@ public class AddressData {
     private String allEmails;
 
 
-
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private static Set<GroupData> groups = new HashSet<GroupData>();
 
@@ -64,43 +63,67 @@ public class AddressData {
                 '}';
     }
 
-    @Column(name="photo")
+    @Column(name = "photo")
     @Type(type = "text")
     private String photo;
 
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public String getMiddleName() { return middleName; }
+    public String getMiddleName() {
+        return middleName;
+    }
 
     public String getLastName() {
         return lastName;
     }
 
 
-    public String getAddress() { return address; }
+    public String getAddress() {
+        return address;
+    }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getHome() { return home; }
+    public String getHome() {
+        return home;
+    }
 
-    public String getMobile() { return mobile; }
+    public String getMobile() {
+        return mobile;
+    }
 
-    public String getWork() { return work; }
+    public String getWork() {
+        return work;
+    }
 
-    public String getAllPhones() { return allPhones; }
+    public String getAllPhones() {
+        return allPhones;
+    }
 
-    public String getEmail2() { return email2; }
+    public String getEmail2() {
+        return email2;
+    }
 
-    public String getEmail3() { return email3; }
+    public String getEmail3() {
+        return email3;
+    }
 
-    public String getAllEmails() { return allEmails; }
+    public String getAllEmails() {
+        return allEmails;
+    }
 
-    public static Groups getGroups() { return new Groups(groups); }
+    public static Groups getGroups() {
+        return new Groups(groups);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -125,7 +148,6 @@ public class AddressData {
     }
 
     //public File getPhoto() { return new File(photo); }
-
 
 
     public AddressData withId(int id) {
@@ -201,7 +223,7 @@ public class AddressData {
         return this;
     }
 
-    public AddressData inGroup(GroupData group) {
+    public AddressData withGroup(GroupData group) {
         groups.add(group);
         return this;
     }

@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
         Set<Project> projects = app.soap().getProjects();
         System.out.println(projects.size());
@@ -22,13 +22,23 @@ public class SoapTests extends TestBase {
         }
     }
 
-    @Test
+    @Test(enabled = false)
     public void testCreateIssue() throws MalformedURLException, ServiceException, RemoteException {
         Set<Project> projects = app.soap().getProjects();
         Issue issue = new Issue().withSummary("Test issue")
                 .withDescription("Test issue description").withProject(projects.iterator().next());
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
+    }
 
+    @Test
+    public void testCheckIssue() throws MalformedURLException, ServiceException, RemoteException {
+        Set<Project> projects = app.soap().getProjects();
+        int issueId = 0000001;
+        skipIfNotFixed(issueId);
+        //boolean status = isIssueOpen(issueId);
+        //System.out.println(status);
     }
 }
+
+

@@ -22,4 +22,3 @@ public class RegistrationHelper extends HelperBase {
         click(By.cssSelector("button[type = 'submit']"));
     }
 }
-

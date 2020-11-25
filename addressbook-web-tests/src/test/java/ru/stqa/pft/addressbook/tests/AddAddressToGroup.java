@@ -56,8 +56,6 @@ public class AddAddressToGroup extends TestBase {
         Groups groupsForAddressAfter = newAddress.getGroups();
         assertThat(groupsForAddressBefore.size() + 1, CoreMatchers.equalTo(groupsForAddressAfter.size()));
         assertThat(groupsForAddressAfter, CoreMatchers.equalTo(groupsForAddressBefore.withAdded(groupWithNewAddress)));
-
-
         Addresses after = app.db().address();
         assertThat(after, equalTo(before.without(pickedAddress).withAdded(newAddress)));
 
