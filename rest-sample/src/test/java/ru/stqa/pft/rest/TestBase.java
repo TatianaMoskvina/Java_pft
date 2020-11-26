@@ -15,7 +15,7 @@ import java.util.Set;
 public class TestBase {
 
     protected Executor getExecutor() {
-        return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
+        return Executor.newInstance().auth("28accbe43ea112d9feb328d2c00b3eed", "");
     }
 
 
@@ -46,10 +46,10 @@ public class TestBase {
     public Set<Issue> getIssues() throws IOException {
         String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json"))
                 .returnContent().asString();
-        JsonElement parsed = new JsonParser().parse(json); //парсим json
-        JsonElement issues = parsed.getAsJsonObject().get("issues"); //по ключу извлекаем нужную часть
+        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
-        }.getType());//костыль - преобразование в множество объектов типа Issue
+        }.getType());
     }
 
     public int createIssue(Issue newIssue) throws IOException {
@@ -58,7 +58,7 @@ public class TestBase {
                         new BasicNameValuePair("description", newIssue.getDescription())))
                 .returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
-        return parsed.getAsJsonObject().get("issue_id").getAsInt(); //идентификатор созданного багрепорта
+        return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 }
 

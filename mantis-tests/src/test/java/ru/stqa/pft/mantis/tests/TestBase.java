@@ -33,7 +33,7 @@ public class TestBase {
         app.stop();
     }
 
-    public boolean OpenedIssue(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+    public boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
         MantisConnectPortType mc = new MantisConnectLocator()
                 .getMantisConnectPort(new URL("http://localhost/mantisbt-2.24.2/api/soap/mantisconnect.php"));
         IssueData issueOpen = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId));
@@ -44,9 +44,10 @@ public class TestBase {
         }
     }
 
-    public void skip(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-        if (OpenedIssue(issueId)) { throw new SkipException("Ignored because of issue " + issueId);
+    public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        if (isIssueOpen(issueId)) { throw new SkipException("Ignored because of issue " + issueId);
         }
     }
+
 }
 

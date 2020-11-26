@@ -17,7 +17,7 @@ public class RestAssuredTests {
 
     @BeforeClass
     public void init() {
-        RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
+        RestAssured.authentication = RestAssured.basic("28accbe43ea112d9feb328d2c00b3eed", "");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class RestAssuredTests {
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
-        }.getType());//костыль
+        }.getType());
     }
 
     private int createIssue(Issue newIssue) throws IOException {
@@ -44,7 +44,7 @@ public class RestAssuredTests {
                 .parameter("description", newIssue.getDescription())
                 .post("https://bugify.stqa.ru/api/issues.json").asString();
         JsonElement parsed = new JsonParser().parse(json);
-        return parsed.getAsJsonObject().get("issue_id").getAsInt(); //идентификатор созданного багрепорта
+        return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
 }
