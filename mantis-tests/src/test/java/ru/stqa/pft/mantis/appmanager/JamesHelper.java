@@ -25,12 +25,12 @@ public class JamesHelper {
 
     public JamesHelper(ApplicationManager app) {
         this.app = app;
-        telnet = new TelnetClient(); //создается telnet клиент при инициализации JamesHelper-a
+        telnet = new TelnetClient();
         mailSession = Session.getDefaultInstance(System.getProperties());
     }
 
     public boolean doesUserExist(String name) {
-        initTelnetSession();
+        initTSession();
         write("verify" + name);
         String result = readUntil("exist");
         closeTelnetSession();
@@ -38,20 +38,20 @@ public class JamesHelper {
     }
 
     public void createUser(String name, String passwd) {
-        initTelnetSession();
+        initTSession();
         write("adduser " + name + " " + passwd);
         String result = readUntil("User " + name + " added");
         closeTelnetSession();
     }
 
     public void deleteUser(String name) {
-        initTelnetSession();
+        initTSession();
         write("deluser " + name);
         String result = readUntil("User " + name + " deleted");
         closeTelnetSession();
     }
 
-    private void initTelnetSession() {
+    private void initTSession() {
         mailserver = app.getProperty("mailserver.host");
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminlogin");
@@ -59,8 +59,8 @@ public class JamesHelper {
 
         try {
             telnet.connect(mailserver, port);
-            in = telnet.getInputStream(); //входной поток - для того чтобы что-то читать
-            out = new PrintStream(telnet.getOutputStream() ); //выходной поток - для того чтобы что-то писать, отправлять команды
+            in = telnet.getInputStream();
+            out = new PrintStream(telnet.getOutputStream() );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,9 +93,7 @@ public class JamesHelper {
                 }
                 ch = (char) in.read();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return null;
     }
 
@@ -104,23 +102,13 @@ public class JamesHelper {
             out.println(value);
             out.flush();
             System.out.println(value);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     private void closeTelnetSession() {
         write("quit");
     }
 
-    //удаление всех писем, полученных каким-то пользователем
-    public void drainEmail(String username, String password) throws MessagingException {
-        Folder inbox = openInbox(username, password);
-        for (Message message : inbox.getMessages()) {
-            message.setFlag(Flags.Flag.DELETED, true);
-        }
-        closeFolder(inbox);
-    }
 
     private void closeFolder(Folder folder) throws MessagingException {
         folder.close(true);
@@ -143,7 +131,7 @@ public class JamesHelper {
                 return allMail;
             }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

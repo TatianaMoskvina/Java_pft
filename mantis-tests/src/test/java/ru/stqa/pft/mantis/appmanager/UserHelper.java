@@ -16,12 +16,12 @@ public class UserHelper extends HelperBase {
         click(By.cssSelector("input[value='Login']"));
     }
 
-    public void resetPassword(String userId) {
+    public void reset(String userId) {
         wd.get(app.getProperty("web.baseUrl") + "manage_user_edit_page.php?user_id=" + userId);
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
-    public void changeAccount(String confirmationLink, String username) {
+    public void changeAcc(String confirmationLink, String username) {
         wd.get(confirmationLink);
         type(By.name("realname"), username);
         type(By.name("password"), "new_password");

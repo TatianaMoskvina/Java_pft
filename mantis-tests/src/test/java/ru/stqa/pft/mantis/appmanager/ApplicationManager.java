@@ -15,15 +15,15 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
     private final String browser;
     private WebDriver wd;
-
     private final Properties properties;
+    private DbHelper dbHelper;
+    private UserHelper usersHelper;
+    private SoapHelper soapHelper;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
-    private DbHelper dbHelper;
-    private UserHelper usersHelper;
-    private SoapHelper soapHelper;
+
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -49,13 +49,6 @@ public class ApplicationManager {
         return properties.getProperty(key);
     }
 
-    public RegistrationHelper registration() {
-        if (registrationHelper == null) {
-            registrationHelper = new RegistrationHelper(this);
-        }
-        return registrationHelper;
-    }
-
     public FtpHelper ftp() {
         if (ftp == null) {
             ftp = new FtpHelper(this);
@@ -63,7 +56,14 @@ public class ApplicationManager {
         return ftp;
     }
 
-    //ленивая инициализация драйвера
+    public RegistrationHelper registration() {
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+
     public WebDriver getDriver() {
         if (wd == null) {
             if (browser.equals(BrowserType.FIREFOX)) {
@@ -73,13 +73,25 @@ public class ApplicationManager {
             } else if (browser.equals(BrowserType.IE)) {
                 wd = new InternetExplorerDriver();
             }
-            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS); //имплицитное ожидание
+            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
     }
 
-    //вновь реализуем механизм ленивой инициализации
+    public UserHelper usersHelper() {
+        if (usersHelper == null) {
+            usersHelper = new UserHelper(this);
+        }
+        return usersHelper;
+    }
+
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+        return dbHelper;}
+
 
     public MailHelper mail() {
         if (mailHelper == null) {
@@ -102,17 +114,4 @@ public class ApplicationManager {
         return soapHelper;
     }
 
-    public UserHelper usersHelper() {
-        if (usersHelper == null) {
-            usersHelper = new UserHelper(this);
-        }
-        return usersHelper;
-    }
-
-    public DbHelper db() {
-        if (dbHelper == null) {
-            dbHelper = new DbHelper(this);
-        }
-        return dbHelper;
-    }
 }

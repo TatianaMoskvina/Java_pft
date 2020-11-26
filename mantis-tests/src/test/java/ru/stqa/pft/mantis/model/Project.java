@@ -9,7 +9,7 @@ public class Project {
         return id;
     }
 
-    public Project withId(int id) {
+    public Project SetId(int id) {
         this.id = id;
         return this;
     }
@@ -18,7 +18,7 @@ public class Project {
         return name;
     }
 
-    public Project withName(String name) {
+    public Project SetName(String name) {
         this.name = name;
         return this;
     }

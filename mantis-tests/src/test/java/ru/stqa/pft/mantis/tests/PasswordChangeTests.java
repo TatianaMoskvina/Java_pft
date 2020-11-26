@@ -17,6 +17,12 @@ import static org.testng.Assert.assertTrue;
 
 public class PasswordChangeTests extends TestBase {
 
+    private String link(List<MailMessage> mailMessages, String email) {
+        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+        return regex.getText(mailMessage.text);
+    }
+
     @BeforeMethod
     public void startMailServer() {
         app.mail().start();
@@ -29,22 +35,16 @@ public class PasswordChangeTests extends TestBase {
         System.out.println(user.getId());
 
         app.usersHelper().start("administrator", "root");
-        app.usersHelper().resetPassword(Integer.toString(user.getId()));
-        
+        app.usersHelper().reset(Integer.toString(user.getId()));
+
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-        String confirmationLink = findLink(mailMessages, user.getEmail());
-        System.out.println(confirmationLink);
-        app.usersHelper().changeAccount(confirmationLink, user.getUsername());
+        String linkm = link(mailMessages, user.getEmail());
+        System.out.println(linkm);
+        app.usersHelper().changeAcc(linkm, user.getUsername());
         HttpSession session = app.newSession();
 
+        assertTrue(session.isLoggedAs(user.getUsername()));
         assertTrue(session.login(user.getUsername(), "new_password"));
-        assertTrue(session.isLoggedInAs(user.getUsername()));
-    }
-
-    private String findLink(List<MailMessage> mailMessages, String email) {
-        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-        return regex.getText(mailMessage.text);
     }
 
 

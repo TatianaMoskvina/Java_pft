@@ -11,7 +11,7 @@ public class Issue {
         return id;
     }
 
-    public Issue withId(int id) {
+    public Issue SetId(int id) {
         this.id = id;
         return this;
     }
@@ -20,7 +20,7 @@ public class Issue {
         return summary;
     }
 
-    public Issue withSummary(String summary) {
+    public Issue SetSummary(String summary) {
         this.summary = summary;
         return this;
     }
@@ -29,16 +29,14 @@ public class Issue {
         return description;
     }
 
-    public Issue withDescription(String description) {
+    public Issue SetDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public Project getProject() {
-        return project;
-    }
+    public Project getProject() { return project; }
 
-    public Issue withProject(Project project) {
+    public Issue SetProject(Project project) {
         this.project = project;
         return this;
     }

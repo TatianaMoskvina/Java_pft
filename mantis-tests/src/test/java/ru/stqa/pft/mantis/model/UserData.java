@@ -20,30 +20,16 @@ public class UserData {
     @Column(name = "email")
     private String email;
 
-    public UserData withId(int id) {
-        this.id = id;
-        return this;
-    }
 
-    public UserData withUsername(String username) {
-        this.username = username;
-        return this;
-    }
+    public int getId() { return id; }
 
-    public UserData withEmail(String email) {
-        this.email = email;
-        return this;
-    }
+    public String getUsername() { return username; }
 
-    public int getId() {
-        return id;
-    }
+    public String getEmail() { return email; }
 
-    public String getUsername() {
-        return username;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setUsername(String username) { this.username = username; }
+
+    public void setEmail(String email) { this.email = email; }
 }
